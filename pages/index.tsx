@@ -6,9 +6,9 @@ import { Header, Main, Cards, Footer } from "@components";
 const Home: React.FC = () => {
   return (
     <Flex direction="column" minH="100vh">
-      <Header />
-      <Main />
-      <Cards />
+      {/* <Header /> */}
+      123
+      {/* <Cards /> */}
       <Spacer />
       <Footer />
     </Flex>

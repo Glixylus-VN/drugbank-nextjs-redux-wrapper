@@ -5,12 +5,15 @@ import theme from "@definitions/chakra/theme";
 import "@styles/global.scss";
 import { Provider } from "react-redux";
 import store from "@redux/store";
+import Layout from "../src/components/layout";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ChakraProvider theme={theme}>
       <Provider store={store}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </Provider>
     </ChakraProvider>
   );
