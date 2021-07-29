@@ -14,7 +14,7 @@ import {
 import { getListDrug } from "@redux/slices/drugbank/listDrugSlice";
 import Link from "next/link";
 import withRedux from "next-redux-wrapper";
-import { wrapper } from "../src/redux/store";
+import { wrapper } from "@redux/store";
 
 interface Props {
   listDrug: any;

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getDetailDrug } from "../../src/redux/slices/drugbank/listDrugSlice";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import withRedux from "next-redux-wrapper";
-import { wrapper } from "../../src/redux/store";
+import { wrapper } from "@redux/store";
 interface Props {
   pid: string;
   detailData: any;
