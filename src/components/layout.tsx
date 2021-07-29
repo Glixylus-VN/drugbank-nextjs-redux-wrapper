@@ -1,11 +1,22 @@
 import React, { ReactElement } from "react";
-import { Box, Flex, Spacer, Center, Button, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Spacer,
+  Center,
+  Button,
+  Text,
+  Container,
+  useColorMode,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
 interface Props {
   children: JSX.Element;
 }
 
-export default function Layout({ children }: Props): ReactElement {
+export default function Layout(): ReactElement {
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Flex direction="column" h="100%" bg="gray.50">
       <Box
@@ -17,9 +28,12 @@ export default function Layout({ children }: Props): ReactElement {
         textColor="black"
       >
         <Flex>
-          <Center>123</Center>
+          <Center><Link href={'/'}>Trang chủ</Link></Center>
           <Spacer />
           <Flex>
+            <Button onClick={toggleColorMode} mr="4">
+              Toggle {colorMode === "light" ? "Dark" : "Light"}
+            </Button>
             <Button colorScheme="teal" mr="4">
               Sign Up
             </Button>
@@ -28,11 +42,11 @@ export default function Layout({ children }: Props): ReactElement {
         </Flex>
       </Box>
       <Spacer />
-      {children}
+      {/* <Container maxW="container.xl">{children}</Container>
       <Spacer />
       <Box sx={{}} bg="teal.400" w="100%" p={4} color="white" textColor="black">
         bottom
-      </Box>
+      </Box> */}
     </Flex>
   );
 }
