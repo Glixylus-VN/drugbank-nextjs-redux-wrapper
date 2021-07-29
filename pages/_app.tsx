@@ -4,18 +4,17 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@definitions/chakra/theme";
 import "@styles/global.scss";
 import { Provider } from "react-redux";
-import store from "@redux/store";
+// import store from "@redux/store";
+import { wrapper } from "../src/redux/store";
 import Layout from "../src/components/layout";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <Layout></Layout>
-        <Component {...pageProps} />
-      </Provider>
+      <Layout></Layout>
+      <Component {...pageProps} />
     </ChakraProvider>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-
+import { createWrapper } from "next-redux-wrapper";
 import rootReducer from "./reducers";
 
 const store = configureStore({ reducer: rootReducer });
+export const makeStore = () => store;
 
-export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-
-export default store;
+// export an assembled wrapper
+export const wrapper = createWrapper(makeStore, { debug: true });

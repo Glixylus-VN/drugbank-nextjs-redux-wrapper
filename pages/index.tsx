@@ -11,22 +11,27 @@ import {
   Container,
   Badge,
 } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
 import { getListDrug } from "@redux/slices/drugbank/listDrugSlice";
 import Link from "next/link";
+import withRedux from "next-redux-wrapper";
+import { wrapper } from "../src/redux/store";
 
-const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const listDrug = useSelector((state) => state.drugData.data);
-  useEffect(() => {
-    dispatch(getListDrug());
-  }, [dispatch]);
+interface Props {
+  listDrug: any;
+}
+const Home: React.FC<Props> = ({ listDrug }) => {
   return (
     <Container maxW="container.xl">
       <SimpleGrid columns={{ sm: 3, md: 5 }} spacing="15px" my={50}>
-        {listDrug?.map((item, index) => (
+        {listDrug.map((item, index) => (
           <Link href={`/thuoc/${item.id}`}>
-            <Box borderWidth="1px" borderRadius="lg" p={3} minHeight={100}>
+            <Box
+              borderWidth="1px"
+              borderRadius="lg"
+              p={3}
+              minHeight={100}
+              key={index}
+            >
               <Box pb={1}>
                 <Badge borderRadius="lg" px="2" colorScheme="teal">
                   {item.id}
@@ -44,5 +49,18 @@ const Home: React.FC = () => {
     </Container>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ params }) => {
+      await store.dispatch(getListDrug());
+      console.log("State on server", store.getState());
+      return {
+        props: {
+          listDrug: store.getState().drugData.data,
+        },
+      };
+    }
+);
 
 export default Home;
