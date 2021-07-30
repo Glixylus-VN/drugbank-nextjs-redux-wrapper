@@ -6,7 +6,7 @@ import "@styles/global.scss";
 import { Provider } from "react-redux";
 // import store from "@redux/store";
 import { wrapper } from "@redux/store";
-import Header from "@components/header";
+import { Header } from "@components/header";
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
