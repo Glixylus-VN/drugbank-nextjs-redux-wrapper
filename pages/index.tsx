@@ -24,13 +24,14 @@ const Home: React.FC<Props> = ({ listDrug }) => {
     <Container maxW="container.xl">
       <SimpleGrid columns={{ sm: 3, md: 5 }} spacing="15px" my={50}>
         {listDrug.map((item, index) => (
-          <Link href={`/thuoc/${item.id}`}>
+          <Link href={`/thuoc/${item.id}`} passHref key={index}>
             <Box
               borderWidth="1px"
               borderRadius="lg"
               p={3}
               minHeight={100}
               key={index}
+              style={{ cursor: "pointer" }}
             >
               <Box pb={1}>
                 <Badge borderRadius="lg" px="2" colorScheme="teal">
@@ -54,7 +55,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ params }) => {
       await store.dispatch(getListDrug());
-      console.log("State on server", store.getState());
+      // console.log("State on server", store.getState());
       return {
         props: {
           listDrug: store.getState().drugData.data,

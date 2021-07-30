@@ -4,13 +4,20 @@ import { getDetailDrug } from "../../src/redux/slices/drugbank/listDrugSlice";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import withRedux from "next-redux-wrapper";
 import { wrapper } from "@redux/store";
+
+export type drug = {
+  id: string;
+  tenThuoc: string;
+  hoatChat: string;
+  congTyDk: string;
+};
 interface Props {
   pid: string;
-  detailData: any;
+  detailData: drug;
 }
 
 export default function Thuoc({ pid, detailData }: Props): ReactElement {
-  return <div>{detailData.tenThuoc}</div>;
+  return <div>{detailData.congTyDk}</div>;
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -20,7 +27,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
       await store.dispatch(getDetailDrug(pid as string));
 
-      console.log("State on server", store.getState());
+      // console.log("State on server", store.getState());
 
       return {
         props: {

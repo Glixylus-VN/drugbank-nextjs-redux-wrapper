@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 import axios from "axios";
 
 type detailInterface = {
@@ -27,8 +28,10 @@ export const getDetailDrug = createAsyncThunk(
 );
 
 const initialState = {
+  loading: false,
   data: null,
   detailDrug: null,
+  hydrateDataDrug: {},
 };
 
 const listDrugSlice = createSlice({
@@ -36,11 +39,23 @@ const listDrugSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getListDrug.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(getListDrug.fulfilled, (state, { payload }) => {
+      state.loading = false;
       state.data = payload;
     });
+    builder.addCase(getDetailDrug.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(getDetailDrug.fulfilled, (state, { payload }) => {
+      state.loading = false;
       state.detailDrug = payload;
+    });
+    builder.addCase(HYDRATE, (state, action: any) => {
+      console.log("HYDRATE", state, action.payload.drugData);
+      state.hydrateDataDrug = action.payload.drugData;
     });
   },
 });

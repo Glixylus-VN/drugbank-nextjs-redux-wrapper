@@ -10,13 +10,32 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { wrapper } from "@redux/store";
 
+import NProgress from "nprogress";
+import Router from "next/router";
+// import "nprogress/nprogress.css";
+
+NProgress.configure({
+  minimum: 0.3,
+  easing: "ease",
+  speed: 500,
+  showSpinner: false,
+});
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 interface Props {
-  children: JSX.Element;
+  loading?: boolean;
 }
 
-export default function Layout(): ReactElement {
+export default function Header({ loading }: Props): ReactElement {
   const { colorMode, toggleColorMode } = useColorMode();
+  // const loadingInd = useSelector(
+  //   (state) => state.drugData.hydrateDataDrug
+  // );
   return (
     <Flex direction="column" h="100%" bg="gray.50">
       <Box
@@ -28,7 +47,9 @@ export default function Layout(): ReactElement {
         textColor="black"
       >
         <Flex>
-          <Center><Link href={'/'}>Trang chủ</Link></Center>
+          <Center>
+            <Link href={"/"}>Trang chủ </Link>
+          </Center>
           <Spacer />
           <Flex>
             <Button onClick={toggleColorMode} mr="4">
