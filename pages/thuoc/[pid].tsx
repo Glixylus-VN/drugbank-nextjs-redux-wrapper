@@ -88,7 +88,7 @@ export const getStaticProps = async ({ params }) => {
       pid,
       detailData: res.data,
     },
-    revalidate: 5,
+    revalidate: 30,
   };
 };
 
