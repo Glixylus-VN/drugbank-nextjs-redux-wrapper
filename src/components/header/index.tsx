@@ -33,8 +33,8 @@ interface Props {
 
 export function Header({ loading }: Props): ReactElement {
   const { colorMode, toggleColorMode } = useColorMode();
-  // const loadingInd = useSelector(
-  //   (state) => state.drugData.hydrateDataDrug
+  // const drugInfo = useSelector(
+  //   (state) => state.drugData.hydrateDataDrug.detailDrug
   // );
   return (
     <Flex direction="column" h="100%" bg="gray.50">
@@ -48,6 +48,7 @@ export function Header({ loading }: Props): ReactElement {
       >
         <Flex>
           <Center>
+            {/* {drugInfo?.id} */}
             <Link href={"/"}>Trang chủ </Link>
           </Center>
           <Spacer />

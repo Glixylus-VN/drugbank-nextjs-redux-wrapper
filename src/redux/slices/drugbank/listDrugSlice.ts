@@ -1,16 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import axios from "axios";
+import { AnyAction } from "redux";
 
 type detailInterface = {
   id: string;
 };
+
+interface hydrateState {
+  detailDrug: {
+    id: string;
+    tenThuoc: string;
+  };
+}
 export const getListDrug = createAsyncThunk("getListDrug", async () => {
   const res = await axios.get(
     "https://drugbank.vn/services/drugbank/api/public/thuoc",
     {
       params: {
-        size: 100,
+        size: 10,
       },
     }
   );
@@ -31,7 +39,7 @@ const initialState = {
   loading: false,
   data: null,
   detailDrug: null,
-  hydrateDataDrug: {},
+  hydrateDataDrug: {} as hydrateState,
 };
 
 const listDrugSlice = createSlice({
@@ -53,7 +61,7 @@ const listDrugSlice = createSlice({
       state.loading = false;
       state.detailDrug = payload;
     });
-    builder.addCase(HYDRATE, (state, action: any) => {
+    builder.addCase(HYDRATE, (state, action: AnyAction) => {
       console.log("HYDRATE", state, action.payload.drugData);
       state.hydrateDataDrug = action.payload.drugData;
     });
